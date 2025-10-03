@@ -24,34 +24,43 @@ void displayBoard(const std::vector<std::vector<Piece>>& board)
     int columns = 15;
     int rows = 15;
 
-    for (int columnHeaders = 0; columnHeaders <= columns - 6; columnHeaders++)
-    {
-        std::cout << "  " << columnHeaders + 1 << " ";
-    }
+    	for (int columnHeaders = 0; columnHeaders < columns; columnHeaders++)
+	{
+		std:: cout << "   ";
+	    if (columnHeaders < 9)
+	    {
+	        std::cout << "0" << columnHeaders + 1;
+	    }
+	    
+	    else if (columnHeaders < 15)
+	    {
+	        std::cout << columnHeaders + 1;
+	    }
+	}
+	
 
-    for (int columnHeaders = 10; columnHeaders <= columns - 1; columnHeaders++)
-    {
-        std::cout << " " << columnHeaders + 1 << " ";
-    }
-    
-    std::cout << '\n';
-
-    for (int rowHeaders = 0; rowHeaders <= rows - 1; rowHeaders++)
-    {
-        std::cout << rowHeaders + 1 << '\n';
-    }
-
-    for (const auto& row : board){
-        for (const auto& cell : row)
-        {
-           //working here
-            if (cell == Piece::empty) std::cout << " [] ";
-            else if (cell == Piece::black) std::cout << " B ";
-            else if (cell == Piece::white) std::cout << " W ";
-        }
-        std::cout << '\n';
-    }
+	for (int rowHeaders = 0; rowHeaders < rows; rowHeaders++)
+	{
+	    if (rowHeaders < 9)
+	    {
+	        std::cout << "\n" << "0" << rowHeaders + 1 << " ";
+	    }
+	    
+	    else if (rowHeaders < 16)
+	    {
+	        std::cout << "\n" << rowHeaders + 1 << " ";
+	    }
+	    
+	    for (const auto& cell:board[rowHeaders])
+	        {
+	            if (cell == Piece::empty) std::cout << " [ ] ";
+	            else if (cell == Piece::black) std::cout << " B ";
+	            else if (cell == Piece::white) std::cout << " W ";
+	        }
+	}
+	
 }
+
 
 int main()
 {
