@@ -21,10 +21,10 @@ std::vector<std::vector<Piece>> makeBoard (int rows, int columns)
 void displayBoard(const std::vector<std::vector<Piece>>& board)
 {
     std::cout << '\n';
-    int columns = 15;
-    int rows = 15;
+    int rows = static_cast <int> (board.size());
+    int columns = static_cast <int> (board[0].size());
 
-    	for (int columnHeaders = 0; columnHeaders < columns; columnHeaders++)
+    for (int columnHeaders = 0; columnHeaders < columns; columnHeaders++)
 	{
 		std:: cout << "   ";
 	    if (columnHeaders < 9)
@@ -53,11 +53,71 @@ void displayBoard(const std::vector<std::vector<Piece>>& board)
 	    
 	    for (const auto& cell:board[rowHeaders])
 	        {
-	            if (cell == Piece::empty) std::cout << " [ ] ";
-	            else if (cell == Piece::black) std::cout << " B ";
-	            else if (cell == Piece::white) std::cout << " W ";
+	            if (cell == Piece::empty) 
+				{
+					std::cout << " [ ] ";
+				}
+	            else if (cell == Piece::black) 
+				{
+					std::cout << "  B  ";
+				}
+	            else if (cell == Piece::white) 
+				{
+					std::cout << "  W  ";
+				}
 	        }
 	}
+	
+	std::cout << "\n";
+}
+
+int getCount(const std::vector<std::vector<Piece>>& board)
+{
+	int count = 0;
+	int rows = static_cast <int> (board.size());
+	int columns = static_cast <int> (board[0].size());
+
+	if (board.empty() || board[0].empty())
+	{
+		return 0;
+	}
+
+	for (const auto& rows : board)
+	{
+		for (const auto& cells : rows)
+		{
+			
+			if (cells != Piece::empty)
+			{
+				count++;
+			}
+		}
+	}
+
+	return count;
+			
+	//int totalCells = rows*columns;
+	//int piecesOnBoard = totalCells - count;
+	//int emptyCellsAmount = totalCells - count;
+	
+
+	//std::cout << "Amount of cells: " << totalCells << "\n";
+
+	//std::cout << "Amount of empty cells: " << emptyCellsAmount << "\n";
+
+	//std::cout << "Amount of Pieces on Board: " << piecesOnBoard << "\n";
+
+	
+	//return 0;
+}
+		
+int getPlayersTurn ()
+{
+
+}
+
+void play( )
+{
 	
 }
 
@@ -67,6 +127,7 @@ int main()
     gameRules();
     auto board = makeBoard(15,15);
     displayBoard(board);
+	
 
     return 0;
 }
