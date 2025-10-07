@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 enum class Piece {empty, black, white};
 enum class Status {ongoing, blackWins, whiteWins, draw};
@@ -20,9 +21,11 @@ std::vector<std::vector<Piece>> makeBoard (int rows, int columns)
 
 void displayBoard(const std::vector<std::vector<Piece>>& board)
 {
-    std::cout << '\n';
+    std::cout << "\n  ";
     int rows = static_cast <int> (board.size());
     int columns = static_cast <int> (board[0].size());
+
+
 
     for (int columnHeaders = 0; columnHeaders < columns; columnHeaders++)
 	{
@@ -94,8 +97,6 @@ int getCount(const std::vector<std::vector<Piece>>& board)
 		}
 	}
 
-	return count;
-			
 	//int totalCells = rows*columns;
 	//int piecesOnBoard = totalCells - count;
 	//int emptyCellsAmount = totalCells - count;
@@ -109,16 +110,36 @@ int getCount(const std::vector<std::vector<Piece>>& board)
 
 	
 	//return 0;
+
+	return count;
 }
 		
-int getPlayersTurn ()
+Piece getPlayersTurn (const std::vector<std::vector<Piece>>& board)
 {
-
+	int count=getCount(board);
+	if (count %2 == 1)
+	{
+		return Piece::black;
+	}
+	else 
+	{
+		return Piece::white;
+	}
 }
 
-void play( )
+
+
+void play(const std::vector<std::vector<Piece>>& board, int rows, int columns)
 {
-	
+	getPlayersTurn();
+
+	if (const& auto rows : board)
+	{
+
+	}
+ 
+1	//if row col is empty and in bound
+	//board[row][col]=currentPiece
 }
 
 
@@ -127,6 +148,7 @@ int main()
     gameRules();
     auto board = makeBoard(15,15);
     displayBoard(board);
+	
 	
 
     return 0;
