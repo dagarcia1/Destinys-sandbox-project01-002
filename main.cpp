@@ -133,12 +133,11 @@ void play(const std::vector<std::vector<Piece>>& board, int rows, int columns)
 {
 	getPlayersTurn();
 
-	if (const& auto rows : board)
+	if (board[rows][columns] == Piece::empty)
 	{
-
+		board[rows][columns] == getPlayersTurn();
 	}
- 
-1	//if row col is empty and in bound
+ 	//if row col is empty and in bound
 	//board[row][col]=currentPiece
 }
 
