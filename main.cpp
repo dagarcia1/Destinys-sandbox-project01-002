@@ -117,7 +117,7 @@ int getCount(const std::vector<std::vector<Piece>>& board)
 Piece getPlayersTurn (const std::vector<std::vector<Piece>>& board)
 {
 	int count=getCount(board);
-	if (count %2 == 1)
+	if (count %2 == 0)
 	{
 		return Piece::black;
 	}
@@ -129,25 +129,99 @@ Piece getPlayersTurn (const std::vector<std::vector<Piece>>& board)
 
 
 
-void play(const std::vector<std::vector<Piece>>& board, int rows, int columns)
+void play(std::vector<std::vector<Piece>>& board, int rows, int columns)
 {
-	getPlayersTurn();
-
 	if (board[rows][columns] == Piece::empty)
 	{
-		board[rows][columns] == getPlayersTurn();
+		(board[rows][columns]) = getPlayersTurn(board);
 	}
- 	//if row col is empty and in bound
-	//board[row][col]=currentPiece
 }
+
+Status gameStatus(const std::vector<std::vector<Piece>>& board)
+{
+	int rows = static_cast <int> (board.size());
+    int columns = static_cast <int> (board[0].size());
+
+	if (board.empty() || board[0].empty())
+	{
+		return Status::ongoing;
+	}
+
+	//horizaontal
+	for (int r = 0; r < rows; r++)
+	{
+		for (int c = 0; c <= columns - 4; c++)
+		{
+			if (board[r][c] != Piece::empty &&
+				board[r][c] == board[r][c + 1] &&
+                board[r][c] == board[r][c + 2] &&
+                board[r][c] == board[r][c + 3] &&
+				board[r][c] == board[r][c + 4]) {
+                return (board[r][c] == Piece::black) ? Status::blackWins : Status::whiteWins;
+            }
+        }
+    }
+
+	//vertical
+	return Status::ongoing;
+}
+
 
 
 int main()
 {
     gameRules();
     auto board = makeBoard(15,15);
-    displayBoard(board);
+    
 	
+	while(gameStatus(board) == Status::ongoing)
+	{
+		displayBoard(board);
+		std::cout << "Players turn: ";
+
+		if (getPlayersTurn(board) == Piece::black)
+		{
+			std::cout << "Black" << '\n';
+		}
+
+		else if (getPlayersTurn(board) == Piece::white)
+		{
+			std::cout << "White" << '\n';
+		}
+
+		int column;
+		int row;
+
+		std::cout << "Select column: ";
+		std::cin >> column;
+
+		std::cout << "Select row: ";
+		std::cin >> row;
+
+		play(board, row - 1, column - 1);
+		
+		
+
+	}
+
+	displayBoard(board);
+	
+	if (gameStatus(board) == Status::blackWins)
+	{
+		std::cout << "Black Wins!" << '\n';
+	}
+
+	else if (gameStatus(board) == Status::whiteWins)
+	{
+		std::cout << "White Wins!" << '\n';
+	}
+
+	else 
+	{
+		std::cout << "Cat wins the Game!" << '\n';
+	}
+
+	std::cout << (gameStatus(board) == Status::blackWins) ? "Black Wins!\n" : "White Wins!\n";
 	
 
     return 0;
